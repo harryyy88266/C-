@@ -1,0 +1,116 @@
+Troubleshooting Answers
+
+1
+Problem:-Data is not visible in template for Compressor 1 as it is for Compressor 2.
+
+Resolution:-
+	->Open Referigeration
+	->Navigate to Compressor 2 in Project Browser 
+	->In the Tag Browser, goto compressor 1
+	->Parameters 
+	->CompressorNumber
+	->You can see that number is 0, change it to 1
+
+2
+Problem:-In Vision Client the Discharge Valve alarm doesn’t say whether it’s open or closed. 
+It should say “Discharge Valve Closed” or “Discharge Valve Open” when the valve closes.
+
+Resolution:
+	->Select valveDischarge Tag in Tag Browser 
+	->Open Tag editor of valveDischarge by Double clicking on it.
+	->Select Alarms and Change the Dispaly Path 
+	->Change the Display Path & add below mentioned quote in Alarm
+	->Display Path
+	->Expression 
+	->Binding
+	->"Discharge Valve"+ if({Value}>0,"Open","Close").
+
+3
+Problem:-Users are unable to change their own details.
+
+Resolution:
+	->Open user management window 
+	->Open its vision property editor 
+	->Change the Username Editing Enabled & Contact Info Editing Enabled from False to True.
+
+4
+Problem:-In the Vision Client Tower template on the window named “Refrigeration” is showing data for Tower 2,
+even when the Tower 1 template is clicked.
+
+Resolution:
+	->Open tower template from project browser 
+	->Select Tower Template from Vision Property Editor.
+	->Bind Indirect Tag on the Property Binding and Give Path as [default]Refrigeration/Tower{1} 
+	->Press Ok.
+
+5
+Problem:-In Vision Client Tower data in a table show a different background color for each
+row based on the pH level but the operators have complained that when they sort the data the
+colors break.
+
+Resolution:
+	->I modified the script like insted of 'rowView' I used 'rowIndex' argument which is the index of the row in the underlying dataset.
+	->So by using this function background colors do not get break even after sorting.
+
+6
+Problem:-Every time whenever they are Generating a Report They seeing the average level and temperature for each tank is broken.
+
+Resolution:
+	->Select Report window on Project Browser.
+	->Select Design Tab in the Report Window
+	->Now Change the table_data Details of Average "@avg.Level@" to "@average.Level@" and "@avg.Temperature" to "@average.Temperature".
+
+7
+Problem:-Client noticed that gauges have been replaced with broken compressors recently.
+
+Resolution:
+	->'IgnitionCoreTroubleshooting' project has the parent project named as global which has gauges in it, so that gauges are get override in the 'IgnitionCoreTroubleshooting' project.
+	->And when I delete the gauge template which get override in 'IgnitionCoreTroubleshooting' project, I am able to see gauges which are Ambient Hum, Ambient Temp, Accumulator Level, Receiver level. 
+	->That's the solution
+
+8
+Problem:-User are Unable to Login to access real-time information about their plant on
+their mobile devices.
+
+Resolution:
+	->Open Project Properties
+	->Select General Tab and Change The Security Settings
+	->In Security Settings Change the Identity Providers From default to Troubleshooting_Users and Apply the changes by pressing ok.
+
+9
+Problem:Map pages should be accessible from the Perspective Project when Map item is selected, nothing seems to happen.
+
+Resolution:
+	->Select the MenuTree from Project Browser.
+	->Open the MenuTree window.
+	->Select MenuTree and open the Prespective Property Editor.
+	->Now Select Items In Prespective Property Editor & change the 2nd Item of target value to /map
+
+10
+Problem:-Header view disappears when users navigate away from the Towers page.
+
+Resolution:
+	->When we are on the Perspective > View, Open Page Configuration by clicking on the Settings icon at the bottom left of the Designer window. Under Page Configuration, click on Shared Settings. 
+	->In the header part of the page mockup, click on the Add(+) icon. 
+	->Select the Header view from the dropdown. And after click on OK relaunch the perspective session and Header view appears on all pages in the project.
+
+11
+Problem:-Label on the view named 'Header' does not seem to work when look at the compressors in a session.
+
+Resolution:
+	->In project browser goto Perspective > Views > Header and click on the 'Label', in right hand side there is PROPS section.
+	->In that PROPS section goto link icon to the text property, click on that link symbol.
+	->In Binding type > property > configure transform ,there is mapping of input and output values. 
+	->Noticed that in the input type there is '/' is missing in the prefix of the map and compressor('map').
+	->So added the '/' at front for both map and compressor('/map' and '/compressors') and clicked 'Apply' then 'OK' and save the project and then launch. 
+
+12
+Problem:-In a tab root container operator have noticed that the tower tabs seem to show the
+same data for each tower.
+
+Resolution:
+	->Select Tower Template on Project Browser
+	->Select EmbeddedView_0 in root 
+	->After selecting the EmbeddedView_0 open Prespective Property Editor 
+	->In Prespective Property Editor select params 
+	->In params change the TowerNumber 1 to 2.
